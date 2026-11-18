@@ -104,6 +104,7 @@ def run_drc(
     top: str | None = None,
     klayout: str | Path | None = None,
     overrides: dict | None = None,
+    threads: int | None = None,
 ) -> RunResult:
     input_path = Path(input_path).expanduser().resolve()
     if not input_path.is_file():
@@ -123,9 +124,10 @@ def run_drc(
         stale.unlink(missing_ok=True)
 
     executable = find_klayout(klayout)
-    command = [
-        executable,
-        "-b",
+    command = [executable, "-b"]
+    if threads and int(threads) > 0:
+        command += ["-t", str(int(threads))]
+    command += [
         "-r",
         str(DECK_PATH),
         "-rd",

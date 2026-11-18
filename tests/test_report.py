@@ -105,6 +105,10 @@ class ReportTest(unittest.TestCase):
             [
                 {
                     "type": "M1.W.1",
+                    "rule": "M1.W.1",
+                    "layer": "MET1",
+                    "class": "error",
+                    "count": 1,
                     "shape": [1.0, 2.0, 3.0, 4.0, "MET1"],
                     "bbox": [1.0, 2.0, 3.0, 4.0],
                 }

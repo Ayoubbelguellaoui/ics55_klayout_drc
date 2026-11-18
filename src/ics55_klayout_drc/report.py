@@ -62,6 +62,10 @@ def to_ecc_violations(
         violations.append(
             {
                 "type": violation_type,
+                "rule": violation_type,
+                "layer": str(layer),
+                "class": "error",
+                "count": 1,
                 "shape": [*bbox, str(layer)],
                 "bbox": bbox,
             }
