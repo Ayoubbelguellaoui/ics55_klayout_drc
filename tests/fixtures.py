@@ -77,6 +77,27 @@ FIXTURES: dict[str, tuple[str, str]] = {
         "top.shapes(CT).insert(RBA::Box.new(1005, 455, 1095, 545))\n"
         "top.shapes(MET1).insert(RBA::Box.new(1000, 450, 1100, 550))",
     ),
+    # Wide M1 (1.2um) encloses CT by only 0.02um (< 0.04um).
+    "fail_ct_wide_m1_enclosure": (
+        f"CT = ly.layer({CT[0]}, {CT[1]})\n"
+        f"MET1 = ly.layer({MET1[0]}, {MET1[1]})",
+        "top.shapes(MET1).insert(RBA::Box.new(0, 0, 1200, 1200))\n"
+        "top.shapes(CT).insert(RBA::Box.new(20, 555, 110, 645))",
+    ),
+    # Same wide M1, enclosure exactly 0.04um.
+    "pass_ct_wide_m1_enclosure": (
+        f"CT = ly.layer({CT[0]}, {CT[1]})\n"
+        f"MET1 = ly.layer({MET1[0]}, {MET1[1]})",
+        "top.shapes(MET1).insert(RBA::Box.new(0, 0, 1200, 1200))\n"
+        "top.shapes(CT).insert(RBA::Box.new(40, 555, 130, 645))",
+    ),
+    # Narrow M1 (0.5um) must not take the wide-metal enclosure limit.
+    "pass_ct_narrow_m1_enclosure": (
+        f"CT = ly.layer({CT[0]}, {CT[1]})\n"
+        f"MET1 = ly.layer({MET1[0]}, {MET1[1]})",
+        "top.shapes(MET1).insert(RBA::Box.new(0, 0, 500, 2000))\n"
+        "top.shapes(CT).insert(RBA::Box.new(20, 500, 110, 590))",
+    ),
     # 45-degree CT edge: GEO.ANG.CT allows 45, but CT must be rectilinear
     "fail_ct_45_angle": (
         f"CT = ly.layer({CT[0]}, {CT[1]})",
@@ -111,6 +132,9 @@ EXPECTED_RULES = {
     "fail_m1_width": "MET1.W.1",
     "fail_m1_area": "MET1.A.1",
     "fail_ct_poly_to_aa_space": "CT.S.3",
+    "fail_ct_wide_m1_enclosure": "CT.EN.4d",
+    "pass_ct_wide_m1_enclosure": "CT.EN.4d",
+    "pass_ct_narrow_m1_enclosure": "CT.EN.4d",
     "fail_np_pp_overlap": "PP.O.1",
     "fail_ct_on_gate": "CT.R.1",
     "fail_ct_45_angle": "CT.R.3",

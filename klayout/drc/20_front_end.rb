@@ -215,3 +215,8 @@ end
 ics55_check("CT.EN.3", "CT must be fully covered by M1", "CT") do
   CT.outside(M1).not_inside(SRAM).not_inside(WAIVE)
 end
+ics55_check("CT.EN.4d", "Enclosure by M1 >= 0.04um when M1 width is > 1um", "CT") do
+  # WITH WIDTH > 1: only polygons that survive a 0.5um undersize are wider than 1um.
+  wide = M1.interacting(M1.sized(-0.5))
+  M1.enclosing(CT.not_outside(wide), 0.04).not_inside(WAIVE)
+end

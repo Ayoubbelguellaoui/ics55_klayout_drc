@@ -43,9 +43,13 @@ class FixturePolarityTest(unittest.TestCase):
                 counts = fixture_rule_counts(name)
                 self.assertGreater(counts.get(rule, 0), 0, f"{rule} not hit")
 
-    def test_pass_fixture_is_clean_on_its_rule(self):
-        counts = fixture_rule_counts("pass_aa_width")
-        self.assertEqual(counts.get("ACT.W.1", 0), 0)
+    def test_pass_fixtures_are_clean_on_their_rule(self):
+        for name, rule in sorted(EXPECTED_RULES.items()):
+            if not name.startswith("pass_"):
+                continue
+            with self.subTest(fixture=name):
+                counts = fixture_rule_counts(name)
+                self.assertEqual(counts.get(rule, 0), 0, f"{rule} hit on {name}")
 
     def test_waive_sram_ct_suppresses_ct_size(self):
         counts = fixture_rule_counts("waive_sram_ct")
