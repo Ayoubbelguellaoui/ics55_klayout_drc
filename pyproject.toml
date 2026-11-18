@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ics55-klayout-drc"
+version = "0.2.0"
+description = "Standalone ICS55 full-mask DRC for KLayout, with ECC integration"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "ICS55 KLayout DRC" }]
+dependencies = []
+
+[project.scripts]
+ics55-drc = "ics55_klayout_drc.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

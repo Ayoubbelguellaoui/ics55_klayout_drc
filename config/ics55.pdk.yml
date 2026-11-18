@@ -1,0 +1,34 @@
+# PDK-aware defaults for ICS55 / ZJCX 55nm LL-ULP.
+# Paths under pdk_root may be overridden by CHIPCOMPILER_ICS55_PDK_ROOT
+# or ecc.toml [pdk].root when running inside ECC.
+
+pdk_root: ../icsprout55-pdk
+layermap: techfile/icsprout55.layermap
+calibre_drc: pv/DRC/ICsprout_CalDRC_55LLULP1233_REV1_0_OS.drc
+drm: docs/ZJCX 55nm Design Rule Manual_V1.1.9.pdf
+techlef: prtech/techLEF/N551P6M.lef
+dbu_nm: 1
+
+stack:
+  total_metal: 6
+  top_metal: 1
+  T2V1_T2M1: 0
+  T2V2_T2M2: 0
+  T4V1_T4M1: 0
+  T4V2_T4M2: 1
+  T8V1_T8M1: 0
+  T8V2_T8M2: 0
+
+io: 1833
+
+switches:
+  recommended: false
+  latchup: true
+  dup: true
+  metal_slot: true
+  mom: true
+  esd: true
+  poly_efuse: true
+  allow_v01: false
+  chipedge: true
+  density: true

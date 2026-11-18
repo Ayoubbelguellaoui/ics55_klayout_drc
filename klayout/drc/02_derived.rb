@@ -1,0 +1,74 @@
+# Derived layers, mirroring the Calibre deck's SETLAYER definitions.
+
+AA   = ACT
+NW   = NW1
+DNWL = DNW
+PO   = POLY
+DG   = DGOX
+TG   = TGOX
+NPLUS = NP
+PPLUS = PP
+HRP_RES = HRP
+
+M1 = MET1
+M2 = MET2
+M3 = MET3
+M4 = MET4
+M5 = MET5
+M6 = MET6
+M7 = MET7
+M8 = MET8
+
+V1 = VIA1
+V2 = VIA2
+V3 = VIA3
+V4 = VIA4
+V5 = VIA5
+V6 = VIA6
+V7 = VIA7
+
+# Waiver / exclusion regions used by the foundry deck.
+WAIVE = NODRC
+SRAM = SRAMALL
+IND = INDALL
+GRID_AREA = GRBLK + SRINGBLK
+DEUPAD_AREA = DEUPAD
+ESD_EXEMPT = ESDIOE
+EFUSE = EFUSEALL
+FUSE = FUSEALL
+
+# Dummy and purpose layers.
+M1_DUM = input(81, 2)
+M2_DUM = input(82, 2)
+M3_DUM = input(83, 2)
+M4_DUM = input(84, 2)
+M5_DUM = input(85, 2)
+M6_DUM = input(86, 2)
+M7_DUM = input(87, 2)
+M8_DUM = input(88, 2)
+AA_DUM = input(2, 2)
+PO_DUM = input(41, 2)
+
+M1_ALL = M1 + M1_DUM
+M2_ALL = M2 + M2_DUM
+M3_ALL = M3 + M3_DUM
+M4_ALL = M4 + M4_DUM
+M5_ALL = M5 + M5_DUM
+M6_ALL = M6 + M6_DUM
+M7_ALL = M7 + M7_DUM
+M8_ALL = M8 + M8_DUM
+AA_ALL = AA + AA_DUM
+PO_ALL = PO + PO_DUM
+
+# Thin metal count. A 1P6M + T4M2 stack is M1..M5 + T4M2 (six metals total).
+THIN_METAL = TOP_METAL == 1 ? TOTAL_METAL - 1 : TOTAL_METAL - 2
+THIN_METAL = 1 if THIN_METAL < 1
+THIN_METAL = 8 if THIN_METAL > 8
+
+ALL_METALS = [M1, M2, M3, M4, M5, M6, M7, M8]
+ALL_METAL_DUMS = [M1_DUM, M2_DUM, M3_DUM, M4_DUM, M5_DUM, M6_DUM, M7_DUM, M8_DUM]
+ALL_METAL_NAMES = %w[MET1 MET2 MET3 MET4 MET5 MET6 MET7 MET8]
+
+METALS = ALL_METALS[0, THIN_METAL]
+METAL_DUMS = ALL_METAL_DUMS[0, THIN_METAL]
+METAL_NAMES = ALL_METAL_NAMES[0, THIN_METAL]

@@ -1,0 +1,40 @@
+# ICS55 full-mask DRC entry deck.
+#
+# Usage:
+#   klayout -b -r ics55_full_mask.drc \
+#     -rd input=design.gds -rd top=TOP \
+#     -rd report=drc.lyrdb -rd summary=drc_summary.json \
+#     -rd violations=drc_violations.jsonl
+#
+# Options (defaults from the foundry Calibre deck):
+#   total_metal=6 top_metal=1 T4V2_T4M2=1
+#   recommended=false density=true chipedge=true io=1833
+
+deck_dir = File.dirname(__FILE__)
+eval(File.read(File.join(deck_dir, "00_options.rb")), binding,
+     File.join(deck_dir, "00_options.rb"))
+
+raise "ics55_full_mask.drc: -rd input=<gds/oasys> is required" if $ics55_input.empty?
+
+if $ics55_top.empty?
+  source($ics55_input)
+else
+  source($ics55_input, $ics55_top)
+end
+
+report("ICS55 DRC", $ics55_report)
+
+%w[
+  01_layers.rb
+  02_derived.rb
+  10_geometry.rb
+  20_front_end.rb
+  30_back_end.rb
+  40_density_slot.rb
+  50_special.rb
+  90_report.rb
+].each do |f|
+  path = File.join(deck_dir, f)
+  raise "missing deck include: #{path}" unless File.exist?(path)
+  eval(File.read(path), binding, path)
+end
