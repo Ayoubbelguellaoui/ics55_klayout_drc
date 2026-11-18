@@ -57,6 +57,15 @@ FIXTURES: dict[str, tuple[str, str]] = {
         "top.shapes(NP).insert(RBA::Box.new(0, 0, 1000, 1000))\n"
         "top.shapes(PP).insert(RBA::Box.new(500, 0, 1500, 1000))",
     ),
+    # CT landing on GATE (PO crossing AA) is forbidden
+    "fail_ct_on_gate": (
+        f"ACT = ly.layer({ACT[0]}, {ACT[1]})\n"
+        f"POLY = ly.layer({POLY[0]}, {POLY[1]})\n"
+        f"CT = ly.layer({CT[0]}, {CT[1]})",
+        "top.shapes(ACT).insert(RBA::Box.new(0, 0, 1000, 1000))\n"
+        "top.shapes(POLY).insert(RBA::Box.new(400, -200, 600, 1200))\n"
+        "top.shapes(CT).insert(RBA::Box.new(450, 450, 540, 540))",
+    ),
     # 30-degree edge on MET1 (only 0/45/90 allowed)
     "fail_45_angle": (
         f"MET1 = ly.layer({MET1[0]}, {MET1[1]})",
@@ -83,6 +92,7 @@ EXPECTED_RULES = {
     "fail_m1_width": "MET1.W.1",
     "fail_m1_area": "MET1.A.1",
     "fail_np_pp_overlap": "PP.O.1",
+    "fail_ct_on_gate": "CT.R.1",
     "fail_45_angle": "GEO.ANG.MET1",
 }
 
