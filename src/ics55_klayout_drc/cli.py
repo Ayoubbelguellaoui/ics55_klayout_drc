@@ -271,14 +271,14 @@ def build_parser() -> argparse.ArgumentParser:
 
     gen = sub.add_parser(
         "generate-tech",
-        help="Generate LYP/LYT/layers.rb from the PDK layermap",
+        help="Generate LYP/LYT/LYM/layers.rb from the PDK layermap",
     )
     _add_common_args(gen)
     gen.add_argument(
         "--out",
         type=Path,
         default=PACKAGE_ROOT / "klayout" / "tech",
-        help="Directory for icsprout55.lyp / .lyt",
+        help="Directory for icsprout55.lyp / .lyt / .lym",
     )
     gen.set_defaults(func=_cmd_generate_tech)
 

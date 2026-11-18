@@ -4,4 +4,9 @@
  <description>ICsprout 55nm LL/ULP</description>
  <dbu>0.001</dbu>
  <layer-properties_file>icsprout55.lyp</layer-properties_file>
+ <reader-options>
+  <common>
+   <layer-map>icsprout55.lm</layer-map>
+  </common>
+ </reader-options>
 </technology>

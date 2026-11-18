@@ -218,13 +218,39 @@ def generate_lyp(entries: Iterable[LayerEntry]) -> str:
     return "\n".join(parts)
 
 
-def generate_lyt(lyp_name: str = "icsprout55.lyp") -> str:
+def generate_lm(entries: Iterable[LayerEntry]) -> str:
+    """KLayout layer-map file (``.lm``): one ``<ld> : <name>`` line per layer.
+
+    This is the format ``RBA::LayerMap.from_string`` parses and the format the
+    technology reader options reference through ``<layer-map>``. Comments use
+    ``#``.
+    """
+    lines = [
+        "# Generated from the ICS55 layermap; do not edit by hand.",
+        "# Format: <gds layer>/<gds datatype> : <KLayout layer name>",
+    ]
+    for entry in entries:
+        lines.append(
+            f"{entry.gds_layer}/{entry.gds_datatype} : {entry.ruby_name}"
+        )
+    lines.append("")
+    return "\n".join(lines)
+
+
+def generate_lyt(
+    lyp_name: str = "icsprout55.lyp", lm_name: str = "icsprout55.lm"
+) -> str:
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <technology>
  <name>icsprout55</name>
  <description>ICsprout 55nm LL/ULP</description>
  <dbu>0.001</dbu>
  <layer-properties_file>{escape(lyp_name)}</layer-properties_file>
+ <reader-options>
+  <common>
+   <layer-map>{escape(lm_name)}</layer-map>
+  </common>
+ </reader-options>
 </technology>
 """
 
@@ -260,11 +286,13 @@ def write_tech_files(cfg: PdkConfig, out_dir: Path) -> dict[str, Path]:
         "layers_rb": layers_rb,
         "lyp": out_dir / "icsprout55.lyp",
         "lyt": out_dir / "icsprout55.lyt",
+        "lm": out_dir / "icsprout55.lm",
         "crossref": docs_dir / "layer_crossref.md",
     }
     layers_rb.write_text(generate_layers_rb(entries), encoding="utf-8")
     paths["lyp"].write_text(generate_lyp(entries), encoding="utf-8")
     paths["lyt"].write_text(generate_lyt(), encoding="utf-8")
+    paths["lm"].write_text(generate_lm(entries), encoding="utf-8")
     paths["crossref"].write_text(generate_crossref_md(entries), encoding="utf-8")
     return paths
 
