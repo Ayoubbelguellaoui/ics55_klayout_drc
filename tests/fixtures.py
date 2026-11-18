@@ -66,6 +66,14 @@ FIXTURES: dict[str, tuple[str, str]] = {
         "top.shapes(POLY).insert(RBA::Box.new(400, -200, 600, 1200))\n"
         "top.shapes(CT).insert(RBA::Box.new(450, 450, 540, 540))",
     ),
+    # 45-degree CT edge: GEO.ANG.CT allows 45, but CT must be rectilinear
+    "fail_ct_45_angle": (
+        f"CT = ly.layer({CT[0]}, {CT[1]})",
+        "top.shapes(CT).insert(RBA::Polygon.new("
+        "[RBA::Point.new(0, 0), RBA::Point.new(60, 0), "
+        "RBA::Point.new(100, 40), RBA::Point.new(100, 100), "
+        "RBA::Point.new(0, 100)]))",
+    ),
     # 30-degree edge on MET1 (only 0/45/90 allowed)
     "fail_45_angle": (
         f"MET1 = ly.layer({MET1[0]}, {MET1[1]})",
@@ -93,6 +101,7 @@ EXPECTED_RULES = {
     "fail_m1_area": "MET1.A.1",
     "fail_np_pp_overlap": "PP.O.1",
     "fail_ct_on_gate": "CT.R.1",
+    "fail_ct_45_angle": "CT.R.3",
     "fail_45_angle": "GEO.ANG.MET1",
 }
 

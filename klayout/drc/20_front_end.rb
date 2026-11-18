@@ -196,6 +196,13 @@ end
 ics55_check("CT.R.2", "CT is not allowed to interact SAB", "CT") do
   CT.interacting(SAB).not_inside(SRAM + EFUSE).not_inside(WAIVE)
 end
+ics55_check("CT.R.3", "45 degree CT is not allowed", "CT") do
+  # Only orthogonal CT edges are allowed; unlike GEO.ANG.CT a 45 deg edge is
+  # not permitted here. Mirrors the deck's angle bands (edges normalize to 0-90).
+  edges = CT.edges
+  orthogonal = edges.with_angle(0.0..0.1) + edges.with_angle(89.9..90.1)
+  (edges - orthogonal).not_inside(SRINGBLK).not_inside(WAIVE)
+end
 ics55_check("CT.EN.1", "CT must be covered by M1 and (AA OR POLY)", "CT") do
   CT.outside(M1 & (AA + PO)).not_inside(SRAM).not_inside(WAIVE)
 end
