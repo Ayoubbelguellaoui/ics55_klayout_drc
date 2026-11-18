@@ -15,6 +15,7 @@ class CompareError(ValueError):
 class RuleResult:
     count: int = 0
     layer: str = ""
+    description: str = ""
 
 
 @dataclass

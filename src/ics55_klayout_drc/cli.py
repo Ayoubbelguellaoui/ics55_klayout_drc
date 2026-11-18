@@ -162,6 +162,14 @@ def _cmd_run(args: argparse.Namespace) -> int:
     return result.exit_code
 
 
+def _load_deltas(path) -> tuple[set[str], set[str]]:
+    if not path:
+        return set(), set()
+    from ics55_klayout_drc.calibre_golden import load_known_deltas
+
+    return load_known_deltas(path)
+
+
 def _cmd_compare(args: argparse.Namespace) -> int:
     klayout_path = Path(args.klayout)
     if not klayout_path.is_file():
@@ -178,12 +186,27 @@ def _cmd_compare(args: argparse.Namespace) -> int:
 
     try:
         klayout_rules = load_summary_rules(klayout_path)
-        golden_rules = load_summary_rules(calibre_path)
     except CompareError as exc:
         print(f"ics55-drc: {exc}", file=sys.stderr)
         return 2
 
-    comparison = compare_summaries(klayout_rules, golden_rules)
+    known_rules, known_counts = _load_deltas(args.known_deltas)
+    golden_source = ""
+    try:
+        from ics55_klayout_drc.calibre_golden import compare_with_golden, load_golden
+
+        golden = load_golden(calibre_path)
+        golden_source = golden.source
+        comparison = compare_with_golden(
+            klayout_rules,
+            golden,
+            known_rule_deltas=known_rules,
+            known_count_deltas=known_counts,
+        )
+        golden_rules = comparison.golden
+    except (ImportError, ValueError, OSError) as exc:
+        print(f"ics55-drc: golden load failed: {exc}", file=sys.stderr)
+        return 2
     print(f"klayout rules: {len(klayout_rules)}")
     print(f"golden rules: {len(golden_rules)}")
     print(f"matched rules: {comparison.matched}")
@@ -204,6 +227,7 @@ def _cmd_compare(args: argparse.Namespace) -> int:
         payload = {
             "klayout": str(klayout_path),
             "golden": str(calibre_path),
+            "golden_source": golden_source,
             "matched": comparison.matched,
             "only_klayout": comparison.only_klayout,
             "only_golden": comparison.only_golden,
@@ -285,6 +309,12 @@ def build_parser() -> argparse.ArgumentParser:
     compare.add_argument("--klayout", type=Path, required=True)
     compare.add_argument("--calibre", type=Path, default=None)
     compare.add_argument("--json", type=Path, default=None)
+    compare.add_argument(
+        "--known-deltas",
+        type=Path,
+        default=None,
+        help="YAML/JSON file with known_rule_deltas / known_count_deltas",
+    )
     compare.add_argument(
         "--strict-counts",
         action="store_true",
