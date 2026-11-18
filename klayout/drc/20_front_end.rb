@@ -190,6 +190,9 @@ end
 ics55_check("CT.S.1", "Space between two contacts >= 0.11um", "CT") do
   CT.space(0.11).not_inside(SRAM).not_inside(WAIVE)
 end
+ics55_check("CT.S.3", "Space between AA and contact on POLY >= 0.065um", "CT") do
+  (CT & PO).separation(AA, 0.065).not_inside(WAIVE)
+end
 ics55_check("CT.R.1", "CT is not allowed to land on GATE", "CT") do
   (CT & PO & AA).not_inside(SRAM).not_inside(WAIVE)
 end

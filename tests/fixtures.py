@@ -66,6 +66,17 @@ FIXTURES: dict[str, tuple[str, str]] = {
         "top.shapes(POLY).insert(RBA::Box.new(400, -200, 600, 1200))\n"
         "top.shapes(CT).insert(RBA::Box.new(450, 450, 540, 540))",
     ),
+    # AA-to-contact-on-POLY spacing is 5 nm (< 65 nm).
+    "fail_ct_poly_to_aa_space": (
+        f"ACT = ly.layer({ACT[0]}, {ACT[1]})\n"
+        f"POLY = ly.layer({POLY[0]}, {POLY[1]})\n"
+        f"CT = ly.layer({CT[0]}, {CT[1]})\n"
+        f"MET1 = ly.layer({MET1[0]}, {MET1[1]})",
+        "top.shapes(ACT).insert(RBA::Box.new(0, 0, 1000, 1000))\n"
+        "top.shapes(POLY).insert(RBA::Box.new(800, 450, 1200, 550))\n"
+        "top.shapes(CT).insert(RBA::Box.new(1005, 455, 1095, 545))\n"
+        "top.shapes(MET1).insert(RBA::Box.new(1000, 450, 1100, 550))",
+    ),
     # 45-degree CT edge: GEO.ANG.CT allows 45, but CT must be rectilinear
     "fail_ct_45_angle": (
         f"CT = ly.layer({CT[0]}, {CT[1]})",
@@ -99,6 +110,7 @@ EXPECTED_RULES = {
     "fail_ct_size": "CT.W.1",
     "fail_m1_width": "MET1.W.1",
     "fail_m1_area": "MET1.A.1",
+    "fail_ct_poly_to_aa_space": "CT.S.3",
     "fail_np_pp_overlap": "PP.O.1",
     "fail_ct_on_gate": "CT.R.1",
     "fail_ct_45_angle": "CT.R.3",
