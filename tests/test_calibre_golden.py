@@ -11,6 +11,7 @@ from ics55_klayout_drc.calibre_golden import (
     load_known_deltas,
     normalize_rule_id,
     parse_deck,
+    parse_layer_aliases,
     parse_run_output,
 )
 from ics55_klayout_drc.compare import RuleResult, load_summary_rules
@@ -133,6 +134,52 @@ def load_summary_rules_path():
     json.dump(SAMPLE_SUMMARY, tmp)
     tmp.close()
     return load_summary_rules(tmp.name)
+
+
+class LayerAliasTest(unittest.TestCase):
+    """The cross-reference needs a clean Calibre name per GDS layer."""
+
+    @classmethod
+    def setUpClass(cls):
+        if not Path(DECK).is_file():
+            raise unittest.SkipTest(f"Calibre deck not found: {DECK}")
+        cls.aliases = parse_layer_aliases(DECK)
+
+    def _display(self, gds_layer, gds_datatype):
+        layer = self.aliases.get((gds_layer, gds_datatype))
+        self.assertIsNotNone(layer, (gds_layer, gds_datatype))
+        return layer.display
+
+    def test_working_layer_aliases(self):
+        self.assertIn("AA", self._display(2, 1))
+        self.assertIn("PO", self._display(41, 1))
+        self.assertIn("M1", self._display(81, 1))
+
+    def test_input_bindings_are_surfaced(self):
+        self.assertTrue(self._display(2, 1).startswith("ACTi"))
+        self.assertTrue(self._display(41, 1).startswith("POLYi"))
+        self.assertTrue(self._display(81, 1).startswith("MET1o"))
+
+    def test_copy_alias_is_preferred_over_variants(self):
+        # ACTi has AA, AA_CP, AA_all, ...; the plain COPY rename wins.
+        self.assertEqual(self._display(2, 1), "ACTi / AA")
+        self.assertEqual(self._display(41, 1), "POLYi / PO")
+
+    def test_not_operands_do_not_leak_the_alias(self):
+        # M1 = MET1o NOT MET1sloti: M1 belongs to 81/1 only, not the slot layer.
+        self.assertIn("M1", self.aliases[(81, 1)].aliases)
+        self.assertNotIn("M1", self.aliases[(81, 8)].aliases)
+        self.assertIn("M1slot", self.aliases[(81, 8)].aliases)
+        self.assertEqual(self._display(81, 8), "MET1sloti / M1slot")
+
+    def test_derived_boolean_layers(self):
+        self.assertIn("SDN", self._display(52, 1))
+        self.assertIn("SDP", self._display(53, 1))
+        self.assertIn("CT", self._display(72, 1))
+        self.assertIn("CT", self._display(72, 7))
+
+    def test_purpose_layers_keep_their_own_name(self):
+        self.assertEqual(self._display(41, 6), "POLYtext")
 
 
 if __name__ == "__main__":

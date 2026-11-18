@@ -78,6 +78,20 @@ class LayermapTest(unittest.TestCase):
             self.assertIn(f"{entry.ruby_name} = input(", rb, entry.name)
             self.assertIn(f": {entry.ruby_name}", lm, entry.name)
 
+    def test_crossref_has_calibre_column(self):
+        cfg = load_pdk_config(CONFIG, pdk_root=PDK_ROOT)
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            tech = tmp_path / "klayout" / "tech"
+            tech.mkdir(parents=True)
+            (tmp_path / "klayout" / "drc").mkdir(parents=True)
+            paths = write_tech_files(cfg, tech)
+            text = paths["crossref"].read_text(encoding="utf-8")
+        self.assertIn("| PDK name | Purpose | GDS L/D | KLayout / Ruby | Calibre |", text)
+        self.assertIn("| ACT | drawing | 2/1 | `ACT` | ACTi / AA |", text)
+        self.assertIn("| POLY | drawing | 41/1 | `POLY` | POLYi / PO |", text)
+        self.assertIn("| MET1 | drawing | 81/1 | `MET1` | MET1o / M1 |", text)
+
     def test_lyt_references_layer_map(self):
         cfg = load_pdk_config(CONFIG, pdk_root=PDK_ROOT)
         with tempfile.TemporaryDirectory() as tmp:

@@ -1,266 +1,268 @@
 # ICS55 layer cross-reference
 
-| PDK name | Purpose | GDS L/D | KLayout / Ruby |
-|---|---|---|---|
-| ZERO | drawing | 0/1 | `ZERO` |
-| ACT | drawing | 2/1 | `ACT` |
-| ACT | dm | 2/2 | `ACT_dm` |
-| ACT | dmblk | 2/3 | `ACT_dmblk` |
-| ACT | res | 2/4 | `ACT_res` |
-| ACT | opcblk | 2/5 | `ACT_opcblk` |
-| DNW | drawing | 7/1 | `DNW` |
-| DNW6t | mark | 7/12 | `DNW6t` |
-| NW1 | drawing | 9/1 | `NW1` |
-| NW1 | res | 9/4 | `NW1_res` |
-| NVT1 | drawing | 17/1 | `NVT1` |
-| PVT1 | drawing | 18/1 | `PVT1` |
-| NVT3 | drawing | 21/1 | `NVT3` |
-| PVT3 | drawing | 22/1 | `PVT3` |
-| DGOX | drawing | 27/1 | `DGOX` |
-| TGOX | drawing | 28/1 | `TGOX` |
-| POLY | drawing | 41/1 | `POLY` |
-| POLY | dm | 41/2 | `POLY_dm` |
-| POLY | dmblk | 41/3 | `POLY_dmblk` |
-| POLY | res | 41/4 | `POLY_res` |
-| POLY | opcblk | 41/5 | `POLY_opcblk` |
-| POLY | text | 41/6 | `POLY_text` |
-| POLY | bar | 41/7 | `POLY_bar` |
-| NPD | drawing | 43/1 | `NPD` |
-| NP | drawing | 52/1 | `NP` |
-| PP | drawing | 53/1 | `PP` |
-| HRP | drawing | 54/1 | `HRP` |
-| ESD | drawing | 55/1 | `ESD` |
-| SAB | drawing | 71/1 | `SAB` |
-| CT | drawing | 72/1 | `CT` |
-| CT | opcblk | 72/5 | `CT_opcblk` |
-| CT | bar | 72/7 | `CT_bar` |
-| MET1 | drawing | 81/1 | `MET1` |
-| MET1 | dm | 81/2 | `MET1_dm` |
-| MET1 | dmblk | 81/3 | `MET1_dmblk` |
-| MET1 | res | 81/4 | `MET1_res` |
-| MET1 | opcblk | 81/5 | `MET1_opcblk` |
-| MET1 | text | 81/6 | `MET1_text` |
-| MET1 | slot | 81/8 | `MET1_slot` |
-| MET1 | slotblk | 81/9 | `MET1_slotblk` |
-| MET1 | mom | 81/10 | `MET1_mom` |
-| MET2 | drawing | 82/1 | `MET2` |
-| MET2 | dm | 82/2 | `MET2_dm` |
-| MET2 | dmblk | 82/3 | `MET2_dmblk` |
-| MET2 | res | 82/4 | `MET2_res` |
-| MET2 | opcblk | 82/5 | `MET2_opcblk` |
-| MET2 | text | 82/6 | `MET2_text` |
-| MET2 | slot | 82/8 | `MET2_slot` |
-| MET2 | slotblk | 82/9 | `MET2_slotblk` |
-| MET2 | mom | 82/10 | `MET2_mom` |
-| MET3 | drawing | 83/1 | `MET3` |
-| MET3 | dm | 83/2 | `MET3_dm` |
-| MET3 | dmblk | 83/3 | `MET3_dmblk` |
-| MET3 | res | 83/4 | `MET3_res` |
-| MET3 | opcblk | 83/5 | `MET3_opcblk` |
-| MET3 | text | 83/6 | `MET3_text` |
-| MET3 | slot | 83/8 | `MET3_slot` |
-| MET3 | slotblk | 83/9 | `MET3_slotblk` |
-| MET3 | mom | 83/10 | `MET3_mom` |
-| MET4 | drawing | 84/1 | `MET4` |
-| MET4 | dm | 84/2 | `MET4_dm` |
-| MET4 | dmblk | 84/3 | `MET4_dmblk` |
-| MET4 | res | 84/4 | `MET4_res` |
-| MET4 | opcblk | 84/5 | `MET4_opcblk` |
-| MET4 | text | 84/6 | `MET4_text` |
-| MET4 | slot | 84/8 | `MET4_slot` |
-| MET4 | slotblk | 84/9 | `MET4_slotblk` |
-| MET4 | mom | 84/10 | `MET4_mom` |
-| MET5 | drawing | 85/1 | `MET5` |
-| MET5 | dm | 85/2 | `MET5_dm` |
-| MET5 | dmblk | 85/3 | `MET5_dmblk` |
-| MET5 | res | 85/4 | `MET5_res` |
-| MET5 | opcblk | 85/5 | `MET5_opcblk` |
-| MET5 | text | 85/6 | `MET5_text` |
-| MET5 | slot | 85/8 | `MET5_slot` |
-| MET5 | slotblk | 85/9 | `MET5_slotblk` |
-| MET5 | mom | 85/10 | `MET5_mom` |
-| MET6 | drawing | 86/1 | `MET6` |
-| MET6 | dm | 86/2 | `MET6_dm` |
-| MET6 | dmblk | 86/3 | `MET6_dmblk` |
-| MET6 | res | 86/4 | `MET6_res` |
-| MET6 | opcblk | 86/5 | `MET6_opcblk` |
-| MET6 | text | 86/6 | `MET6_text` |
-| MET6 | slot | 86/8 | `MET6_slot` |
-| MET6 | slotblk | 86/9 | `MET6_slotblk` |
-| MET6 | mom | 86/10 | `MET6_mom` |
-| MET7 | drawing | 87/1 | `MET7` |
-| MET7 | dm | 87/2 | `MET7_dm` |
-| MET7 | dmblk | 87/3 | `MET7_dmblk` |
-| MET7 | res | 87/4 | `MET7_res` |
-| MET7 | opcblk | 87/5 | `MET7_opcblk` |
-| MET7 | text | 87/6 | `MET7_text` |
-| MET7 | slot | 87/8 | `MET7_slot` |
-| MET7 | slotblk | 87/9 | `MET7_slotblk` |
-| MET7 | mom | 87/10 | `MET7_mom` |
-| MET8 | drawing | 88/1 | `MET8` |
-| MET8 | dm | 88/2 | `MET8_dm` |
-| MET8 | dmblk | 88/3 | `MET8_dmblk` |
-| MET8 | res | 88/4 | `MET8_res` |
-| MET8 | opcblk | 88/5 | `MET8_opcblk` |
-| MET8 | text | 88/6 | `MET8_text` |
-| MET8 | slot | 88/8 | `MET8_slot` |
-| MET8 | slotblk | 88/9 | `MET8_slotblk` |
-| MET8 | mom | 88/10 | `MET8_mom` |
-| VIA1 | drawing | 91/1 | `VIA1` |
-| VIA1 | bar | 91/7 | `VIA1_bar` |
-| VIA2 | drawing | 92/1 | `VIA2` |
-| VIA2 | bar | 92/7 | `VIA2_bar` |
-| VIA3 | drawing | 93/1 | `VIA3` |
-| VIA3 | bar | 93/7 | `VIA3_bar` |
-| VIA4 | drawing | 94/1 | `VIA4` |
-| VIA4 | bar | 94/7 | `VIA4_bar` |
-| VIA5 | drawing | 95/1 | `VIA5` |
-| VIA5 | bar | 95/7 | `VIA5_bar` |
-| VIA6 | drawing | 96/1 | `VIA6` |
-| VIA6 | bar | 96/7 | `VIA6_bar` |
-| VIA7 | drawing | 97/1 | `VIA7` |
-| VIA7 | bar | 97/7 | `VIA7_bar` |
-| T2M1 | drawing | 100/1 | `T2M1` |
-| T2M1 | dm | 100/2 | `T2M1_dm` |
-| T2M1 | dmblk | 100/3 | `T2M1_dmblk` |
-| T2M1 | res | 100/4 | `T2M1_res` |
-| T2M1 | opcblk | 100/5 | `T2M1_opcblk` |
-| T2M1 | text | 100/6 | `T2M1_text` |
-| T2M1 | slot | 100/8 | `T2M1_slot` |
-| T2M1 | slotblk | 100/9 | `T2M1_slotblk` |
-| T2M2 | drawing | 101/1 | `T2M2` |
-| T2M2 | dm | 101/2 | `T2M2_dm` |
-| T2M2 | dmblk | 101/3 | `T2M2_dmblk` |
-| T2M2 | res | 101/4 | `T2M2_res` |
-| T2M2 | opcblk | 101/5 | `T2M2_opcblk` |
-| T2M2 | text | 101/6 | `T2M2_text` |
-| T2M2 | slot | 101/8 | `T2M2_slot` |
-| T2M2 | slotblk | 101/9 | `T2M2_slotblk` |
-| T4M1 | drawing | 102/1 | `T4M1` |
-| T4M1 | dm | 102/2 | `T4M1_dm` |
-| T4M1 | dmblk | 102/3 | `T4M1_dmblk` |
-| T4M1 | res | 102/4 | `T4M1_res` |
-| T4M1 | opcblk | 102/5 | `T4M1_opcblk` |
-| T4M1 | text | 102/6 | `T4M1_text` |
-| T4M1 | slot | 102/8 | `T4M1_slot` |
-| T4M1 | slotblk | 102/9 | `T4M1_slotblk` |
-| T4M2 | drawing | 103/1 | `T4M2` |
-| T4M2 | dm | 103/2 | `T4M2_dm` |
-| T4M2 | dmblk | 103/3 | `T4M2_dmblk` |
-| T4M2 | res | 103/4 | `T4M2_res` |
-| T4M2 | opcblk | 103/5 | `T4M2_opcblk` |
-| T4M2 | text | 103/6 | `T4M2_text` |
-| T4M2 | slot | 103/8 | `T4M2_slot` |
-| T4M2 | slotblk | 103/9 | `T4M2_slotblk` |
-| T8M1 | drawing | 104/1 | `T8M1` |
-| T8M1 | dm | 104/2 | `T8M1_dm` |
-| T8M1 | dmblk | 104/3 | `T8M1_dmblk` |
-| T8M1 | res | 104/4 | `T8M1_res` |
-| T8M1 | opcblk | 104/5 | `T8M1_opcblk` |
-| T8M1 | text | 104/6 | `T8M1_text` |
-| T8M1 | slot | 104/8 | `T8M1_slot` |
-| T8M1 | slotblk | 104/9 | `T8M1_slotblk` |
-| T8M2 | drawing | 105/1 | `T8M2` |
-| T8M2 | dm | 105/2 | `T8M2_dm` |
-| T8M2 | dmblk | 105/3 | `T8M2_dmblk` |
-| T8M2 | res | 105/4 | `T8M2_res` |
-| T8M2 | opcblk | 105/5 | `T8M2_opcblk` |
-| T8M2 | text | 105/6 | `T8M2_text` |
-| T8M2 | slot | 105/8 | `T8M2_slot` |
-| T8M2 | slotblk | 105/9 | `T8M2_slotblk` |
-| T2V1 | drawing | 110/1 | `T2V1` |
-| T2V1 | bar | 110/7 | `T2V1_bar` |
-| T2V2 | drawing | 111/1 | `T2V2` |
-| T2V2 | bar | 111/7 | `T2V2_bar` |
-| T4V1 | drawing | 112/1 | `T4V1` |
-| T4V1 | bar | 112/7 | `T4V1_bar` |
-| T4V2 | drawing | 113/1 | `T4V2` |
-| T4V2 | bar | 113/7 | `T4V2_bar` |
-| T8V1 | drawing | 114/1 | `T8V1` |
-| T8V1 | bar | 114/7 | `T8V1_bar` |
-| T8V2 | drawing | 115/1 | `T8V2` |
-| T8V2 | bar | 115/7 | `T8V2_bar` |
-| RV | drawing | 120/1 | `RV` |
-| CB | drawing | 121/1 | `CB` |
-| CB | text | 121/6 | `CB_text` |
-| ALPAD | drawing | 122/1 | `ALPAD` |
-| ALPAD | res | 122/4 | `ALPAD_res` |
-| ALPAD | text | 122/6 | `ALPAD_text` |
-| ALPAD | slot | 122/8 | `ALPAD_slot` |
-| ALPAD | slotblk | 122/9 | `ALPAD_slotblk` |
-| RDL | drawing | 123/1 | `RDL` |
-| RDL | text | 123/6 | `RDL_text` |
-| COVER | drawing | 124/1 | `L_COVER` |
-| BMIM | drawing | 140/1 | `BMIM` |
-| TMIM | drawing | 141/1 | `TMIM` |
-| IO | mark | 150/12 | `L_IO` |
-| CORE | mark | 151/12 | `CORE` |
-| ULLD | mark | 152/12 | `ULLD` |
-| UD | mark | 153/12 | `UD` |
-| OD | mark | 154/12 | `OD` |
-| SRAMALL | mark | 171/12 | `SRAMALL` |
-| SRAMPG | mark | 172/12 | `SRAMPG` |
-| SRAM6THD | mark | 173/12 | `SRAM6THD` |
-| SRAM6THS | mark | 174/12 | `SRAM6THS` |
-| SRAM8THD | mark | 176/12 | `SRAM8THD` |
-| SRAM8THS | mark | 177/12 | `SRAM8THS` |
-| DIODE | mark | 191/12 | `DIODE` |
-| VARA | mark | 192/12 | `VARA` |
-| VARAM | mark | 193/12 | `VARAM` |
-| VARAJ | mark | 194/12 | `VARAJ` |
-| BJT | mark | 195/12 | `BJT` |
-| LDMOS | mark | 211/12 | `LDMOS` |
-| ESDIOT | mark | 231/12 | `ESDIOT` |
-| ESDIOE | mark | 232/12 | `ESDIOE` |
-| RFALL | mark | 241/12 | `RFALL` |
-| RFD | mark | 242/12 | `RFD` |
-| RFTER | mark | 243/12 | `RFTER` |
-| PSUB | mark | 261/12 | `PSUB` |
-| CAP | mark | 271/12 | `CAP` |
-| MOMCAP | mark | 281/12 | `MOMCAP` |
-| MOMTER | mark | 282/12 | `MOMTER` |
-| FUTR | mark | 291/12 | `FUTR` |
-| FUSEALL | mark | 292/12 | `FUSEALL` |
-| EFUSEALL | mark | 293/12 | `EFUSEALL` |
-| POEFUSEBLK | mark | 294/12 | `POEFUSEBLK` |
-| INDDMY | mark | 301/12 | `INDDMY` |
-| INDALL | mark | 302/12 | `INDALL` |
-| INDVIA | mark | 303/12 | `INDVIA` |
-| NOLVS | mark | 311/12 | `NOLVS` |
-| MOSMF | mark | 312/12 | `MOSMF` |
-| SUBCKTLVS | mark | 313/12 | `SUBCKTLVS` |
-| RESCKTLVS | mark | 314/12 | `RESCKTLVS` |
-| MOSCKTLVS | mark | 315/12 | `MOSCKTLVS` |
-| LATCHUP | mark | 316/12 | `LATCHUP` |
-| RFSDLVS | mark | 317/12 | `RFSDLVS` |
-| RF5TERLVS | mark | 318/12 | `RF5TERLVS` |
-| RF6TERLVS | mark | 319/12 | `RF6TERLVS` |
-| VARAJMRK | mark | 320/12 | `VARAJMRK` |
-| LDMOSSTI | mark | 321/12 | `LDMOSSTI` |
-| FUSEDRC | mark | 322/12 | `FUSEDRC` |
-| MOMLVS1 | mark | 323/12 | `MOMLVS1` |
-| MOMLVS2 | mark | 324/12 | `MOMLVS2` |
-| MOMLVS3 | mark | 325/12 | `MOMLVS3` |
-| MOMLVS4 | mark | 326/12 | `MOMLVS4` |
-| MOMLVS5 | mark | 327/12 | `MOMLVS5` |
-| MOMLVS6 | mark | 328/12 | `MOMLVS6` |
-| RES3TPOLY | mark | 329/12 | `RES3TPOLY` |
-| CHIPBLK | mark | 351/12 | `CHIPBLK` |
-| SRBLK | mark | 352/12 | `SRBLK` |
-| GRBLK | mark | 353/12 | `GRBLK` |
-| SRINGBLK | mark | 354/12 | `SRINGBLK` |
-| LOGO | mark | 355/12 | `LOGO` |
-| NOSHRINK | mark | 356/12 | `NOSHRINK` |
-| NODRC | mark | 357/12 | `NODRC` |
-| OPCBLKALL | mark | 358/12 | `OPCBLKALL` |
-| DMYBLK | mark | 359/12 | `DMYBLK` |
-| NOEBBLK | mark | 360/12 | `NOEBBLK` |
-| METBLK | mark | 361/12 | `METBLK` |
-| DEUPAD | mark | 381/12 | `DEUPAD` |
-| VDD | mark | 382/12 | `VDD` |
-| VSS | mark | 383/12 | `VSS` |
-| NPR | mark | 384/12 | `NPR` |
-| HRPBLK | mark | 385/12 | `HRPBLK` |
-| TTXT | mark | 386/12 | `TTXT` |
-| SUBTXT | mark | 387/12 | `SUBTXT` |
-| WELTXT | mark | 388/12 | `WELTXT` |
+| PDK name | Purpose | GDS L/D | KLayout / Ruby | Calibre |
+|---|---|---|---|---|
+| ZERO | drawing | 0/1 | `ZERO` | — |
+| ACT | drawing | 2/1 | `ACT` | ACTi / AA |
+| ACT | dm | 2/2 | `ACT_dm` | ACTdmi / AADUM |
+| ACT | dmblk | 2/3 | `ACT_dmblk` | ACTdmblk / AADUMB |
+| ACT | res | 2/4 | `ACT_res` | ACTres / AARES |
+| ACT | opcblk | 2/5 | `ACT_opcblk` | ACTopcblk |
+| DNW | drawing | 7/1 | `DNW` | DNWi / DNW |
+| DNW6t | mark | 7/12 | `DNW6t` | — |
+| NW1 | drawing | 9/1 | `NW1` | NW1i / NW |
+| NW1 | res | 9/4 | `NW1_res` | NW1res |
+| NVT1 | drawing | 17/1 | `NVT1` | NVT1 / LVTN |
+| PVT1 | drawing | 18/1 | `PVT1` | PVT1 / LVTP |
+| NVT3 | drawing | 21/1 | `NVT3` | NVT3 / HVTN |
+| PVT3 | drawing | 22/1 | `PVT3` | PVT3 / HVTP |
+| DGOX | drawing | 27/1 | `DGOX` | DGOX / DG |
+| TGOX | drawing | 28/1 | `TGOX` | TGOX / TG |
+| POLY | drawing | 41/1 | `POLY` | POLYi / PO |
+| POLY | dm | 41/2 | `POLY_dm` | POLYdmi / PODUM |
+| POLY | dmblk | 41/3 | `POLY_dmblk` | POLYdmblk / PODUMB |
+| POLY | res | 41/4 | `POLY_res` | POLYres / PORES |
+| POLY | opcblk | 41/5 | `POLY_opcblk` | POLYopcblk |
+| POLY | text | 41/6 | `POLY_text` | POLYtext |
+| POLY | bar | 41/7 | `POLY_bar` | POLYbar |
+| NPD | drawing | 43/1 | `NPD` | NPD |
+| NP | drawing | 52/1 | `NP` | NPi / SDN |
+| PP | drawing | 53/1 | `PP` | PPi / SDP |
+| HRP | drawing | 54/1 | `HRP` | HRPi / HRP |
+| ESD | drawing | 55/1 | `ESD` | ESD1 / X |
+| SAB | drawing | 71/1 | `SAB` | SABi / SAB |
+| CT | drawing | 72/1 | `CT` | CTi / CT |
+| CT | opcblk | 72/5 | `CT_opcblk` | CTopcblk |
+| CT | bar | 72/7 | `CT_bar` | CTbar / CT |
+| MET1 | drawing | 81/1 | `MET1` | MET1o / M1 |
+| MET1 | dm | 81/2 | `MET1_dm` | MET1dmi / M1DUM |
+| MET1 | dmblk | 81/3 | `MET1_dmblk` | MET1dmblk / M1DUMB |
+| MET1 | res | 81/4 | `MET1_res` | MET1res / M1R |
+| MET1 | opcblk | 81/5 | `MET1_opcblk` | MET1opcblk |
+| MET1 | text | 81/6 | `MET1_text` | MET1text |
+| MET1 | slot | 81/8 | `MET1_slot` | MET1sloti / M1slot |
+| MET1 | slotblk | 81/9 | `MET1_slotblk` | MET1slotblk |
+| MET1 | mom | 81/10 | `MET1_mom` | MET1mom / M1MOM |
+| MET2 | drawing | 82/1 | `MET2` | MET2o / M2 |
+| MET2 | dm | 82/2 | `MET2_dm` | MET2dmi / M2DUM |
+| MET2 | dmblk | 82/3 | `MET2_dmblk` | MET2dmblk / M2DUMB |
+| MET2 | res | 82/4 | `MET2_res` | MET2res / M2R |
+| MET2 | opcblk | 82/5 | `MET2_opcblk` | MET2opcblk |
+| MET2 | text | 82/6 | `MET2_text` | MET2text |
+| MET2 | slot | 82/8 | `MET2_slot` | MET2sloti / M2slot |
+| MET2 | slotblk | 82/9 | `MET2_slotblk` | MET2slotblk |
+| MET2 | mom | 82/10 | `MET2_mom` | MET2mom / M2MOM |
+| MET3 | drawing | 83/1 | `MET3` | MET3o / M3 |
+| MET3 | dm | 83/2 | `MET3_dm` | MET3dmi / M3DUM |
+| MET3 | dmblk | 83/3 | `MET3_dmblk` | MET3dmblk / M3DUMB |
+| MET3 | res | 83/4 | `MET3_res` | MET3res / M3R |
+| MET3 | opcblk | 83/5 | `MET3_opcblk` | MET3opcblk |
+| MET3 | text | 83/6 | `MET3_text` | MET3text |
+| MET3 | slot | 83/8 | `MET3_slot` | MET3sloti / M3slot |
+| MET3 | slotblk | 83/9 | `MET3_slotblk` | MET3slotblk |
+| MET3 | mom | 83/10 | `MET3_mom` | MET3mom / M3MOM |
+| MET4 | drawing | 84/1 | `MET4` | MET4o / M4 |
+| MET4 | dm | 84/2 | `MET4_dm` | MET4dmi / M4DUM |
+| MET4 | dmblk | 84/3 | `MET4_dmblk` | MET4dmblk / M4DUMB |
+| MET4 | res | 84/4 | `MET4_res` | MET4res / M4R |
+| MET4 | opcblk | 84/5 | `MET4_opcblk` | MET4opcblk |
+| MET4 | text | 84/6 | `MET4_text` | MET4text |
+| MET4 | slot | 84/8 | `MET4_slot` | MET4sloti / M4slot |
+| MET4 | slotblk | 84/9 | `MET4_slotblk` | MET4slotblk |
+| MET4 | mom | 84/10 | `MET4_mom` | MET4mom / M4MOM |
+| MET5 | drawing | 85/1 | `MET5` | MET5o / M5 |
+| MET5 | dm | 85/2 | `MET5_dm` | MET5dmi / M5DUM |
+| MET5 | dmblk | 85/3 | `MET5_dmblk` | MET5dmblk / M5DUMB |
+| MET5 | res | 85/4 | `MET5_res` | MET5res / M5R |
+| MET5 | opcblk | 85/5 | `MET5_opcblk` | MET5opcblk |
+| MET5 | text | 85/6 | `MET5_text` | MET5text |
+| MET5 | slot | 85/8 | `MET5_slot` | MET5sloti / M5slot |
+| MET5 | slotblk | 85/9 | `MET5_slotblk` | MET5slotblk |
+| MET5 | mom | 85/10 | `MET5_mom` | MET5mom / M5MOM |
+| MET6 | drawing | 86/1 | `MET6` | MET6o / M6 |
+| MET6 | dm | 86/2 | `MET6_dm` | MET6dmi / M6DUM |
+| MET6 | dmblk | 86/3 | `MET6_dmblk` | MET6dmblk / M6DUMB |
+| MET6 | res | 86/4 | `MET6_res` | MET6res / M6R |
+| MET6 | opcblk | 86/5 | `MET6_opcblk` | MET6opcblk |
+| MET6 | text | 86/6 | `MET6_text` | MET6text |
+| MET6 | slot | 86/8 | `MET6_slot` | MET6sloti / M6slot |
+| MET6 | slotblk | 86/9 | `MET6_slotblk` | MET6slotblk |
+| MET6 | mom | 86/10 | `MET6_mom` | MET6mom / M6MOM |
+| MET7 | drawing | 87/1 | `MET7` | MET7o / M7 |
+| MET7 | dm | 87/2 | `MET7_dm` | MET7dmi / M7DUM |
+| MET7 | dmblk | 87/3 | `MET7_dmblk` | MET7dmblk / M7DUMB |
+| MET7 | res | 87/4 | `MET7_res` | MET7res / M7R |
+| MET7 | opcblk | 87/5 | `MET7_opcblk` | MET7opcblk |
+| MET7 | text | 87/6 | `MET7_text` | MET7text |
+| MET7 | slot | 87/8 | `MET7_slot` | MET7sloti / M7slot |
+| MET7 | slotblk | 87/9 | `MET7_slotblk` | MET7slotblk |
+| MET7 | mom | 87/10 | `MET7_mom` | MET7mom / M7MOM |
+| MET8 | drawing | 88/1 | `MET8` | MET8o / M8 |
+| MET8 | dm | 88/2 | `MET8_dm` | MET8dmi / M8DUM |
+| MET8 | dmblk | 88/3 | `MET8_dmblk` | MET8dmblk / M8DUMB |
+| MET8 | res | 88/4 | `MET8_res` | MET8res / M8R |
+| MET8 | opcblk | 88/5 | `MET8_opcblk` | MET8opcblk |
+| MET8 | text | 88/6 | `MET8_text` | MET8text |
+| MET8 | slot | 88/8 | `MET8_slot` | MET8sloti / M8slot |
+| MET8 | slotblk | 88/9 | `MET8_slotblk` | MET8slotblk |
+| MET8 | mom | 88/10 | `MET8_mom` | MET8mom / M8MOM |
+| VIA1 | drawing | 91/1 | `VIA1` | VIA1i / V1_org |
+| VIA1 | bar | 91/7 | `VIA1_bar` | VIA1bar / V1bar |
+| VIA2 | drawing | 92/1 | `VIA2` | VIA2i / V2_org |
+| VIA2 | bar | 92/7 | `VIA2_bar` | VIA2bar / V2bar |
+| VIA3 | drawing | 93/1 | `VIA3` | VIA3i / V3_org |
+| VIA3 | bar | 93/7 | `VIA3_bar` | VIA3bar / V3bar |
+| VIA4 | drawing | 94/1 | `VIA4` | VIA4i / V4_org |
+| VIA4 | bar | 94/7 | `VIA4_bar` | VIA4bar / V4bar |
+| VIA5 | drawing | 95/1 | `VIA5` | VIA5i / V5_org |
+| VIA5 | bar | 95/7 | `VIA5_bar` | VIA5bar / V5bar |
+| VIA6 | drawing | 96/1 | `VIA6` | VIA6i / V6_org |
+| VIA6 | bar | 96/7 | `VIA6_bar` | VIA6bar / V6bar |
+| VIA7 | drawing | 97/1 | `VIA7` | VIA7i / V7_org |
+| VIA7 | bar | 97/7 | `VIA7_bar` | VIA7bar / V7bar |
+| T2M1 | drawing | 100/1 | `T2M1` | T2M1o / T2M1 |
+| T2M1 | dm | 100/2 | `T2M1_dm` | T2M1dmi / T2M1DUM |
+| T2M1 | dmblk | 100/3 | `T2M1_dmblk` | T2M1dmblk / T2M1DUMB |
+| T2M1 | res | 100/4 | `T2M1_res` | T2M1res / T2M1R |
+| T2M1 | opcblk | 100/5 | `T2M1_opcblk` | T2M1opcblk |
+| T2M1 | text | 100/6 | `T2M1_text` | T2M1text |
+| T2M1 | slot | 100/8 | `T2M1_slot` | T2M1sloti / T2M1slot |
+| T2M1 | slotblk | 100/9 | `T2M1_slotblk` | T2M1slotblk |
+| T2M2 | drawing | 101/1 | `T2M2` | T2M2o / T2M2 |
+| T2M2 | dm | 101/2 | `T2M2_dm` | T2M2dmi / T2M2DUM |
+| T2M2 | dmblk | 101/3 | `T2M2_dmblk` | T2M2dmblk / T2M2DUMB |
+| T2M2 | res | 101/4 | `T2M2_res` | T2M2res / T2M2R |
+| T2M2 | opcblk | 101/5 | `T2M2_opcblk` | T2M2opcblk |
+| T2M2 | text | 101/6 | `T2M2_text` | T2M2text |
+| T2M2 | slot | 101/8 | `T2M2_slot` | T2M2sloti / T2M2slot |
+| T2M2 | slotblk | 101/9 | `T2M2_slotblk` | T2M2slotblk |
+| T4M1 | drawing | 102/1 | `T4M1` | T4M1o / T4M1 |
+| T4M1 | dm | 102/2 | `T4M1_dm` | T4M1dmi / T4M1DUM |
+| T4M1 | dmblk | 102/3 | `T4M1_dmblk` | T4M1dmblk / T4M1DUMB |
+| T4M1 | res | 102/4 | `T4M1_res` | T4M1res / T4M1R |
+| T4M1 | opcblk | 102/5 | `T4M1_opcblk` | T4M1opcblk |
+| T4M1 | text | 102/6 | `T4M1_text` | T4M1text |
+| T4M1 | slot | 102/8 | `T4M1_slot` | T4M1sloti / T4M1slot |
+| T4M1 | slotblk | 102/9 | `T4M1_slotblk` | T4M1slotblk |
+| T4M2 | drawing | 103/1 | `T4M2` | T4M2o / T4M2 |
+| T4M2 | dm | 103/2 | `T4M2_dm` | T4M2dmi / T4M2DUM |
+| T4M2 | dmblk | 103/3 | `T4M2_dmblk` | T4M2dmblk / T4M2DUMB |
+| T4M2 | res | 103/4 | `T4M2_res` | T4M2res / T4M2R |
+| T4M2 | opcblk | 103/5 | `T4M2_opcblk` | T4M2opcblk |
+| T4M2 | text | 103/6 | `T4M2_text` | T4M2text |
+| T4M2 | slot | 103/8 | `T4M2_slot` | T4M2sloti / T4M2slot |
+| T4M2 | slotblk | 103/9 | `T4M2_slotblk` | T4M2slotblk |
+| T8M1 | drawing | 104/1 | `T8M1` | T8M1o / T8M1 |
+| T8M1 | dm | 104/2 | `T8M1_dm` | T8M1dmi / T8M1DUM |
+| T8M1 | dmblk | 104/3 | `T8M1_dmblk` | T8M1dmblk / T8M1DUMB |
+| T8M1 | res | 104/4 | `T8M1_res` | T8M1res / T8M1R |
+| T8M1 | opcblk | 104/5 | `T8M1_opcblk` | T8M1opcblk |
+| T8M1 | text | 104/6 | `T8M1_text` | T8M1text |
+| T8M1 | slot | 104/8 | `T8M1_slot` | T8M1sloti / T8M1slot |
+| T8M1 | slotblk | 104/9 | `T8M1_slotblk` | T8M1slotblk |
+| T8M2 | drawing | 105/1 | `T8M2` | T8M2o / T8M2 |
+| T8M2 | dm | 105/2 | `T8M2_dm` | T8M2dmi / T8M2DUM |
+| T8M2 | dmblk | 105/3 | `T8M2_dmblk` | T8M2dmblk / T8M2DUMB |
+| T8M2 | res | 105/4 | `T8M2_res` | T8M2res / T8M2R |
+| T8M2 | opcblk | 105/5 | `T8M2_opcblk` | T8M2opcblk |
+| T8M2 | text | 105/6 | `T8M2_text` | T8M2text |
+| T8M2 | slot | 105/8 | `T8M2_slot` | T8M2sloti / T8M2slot |
+| T8M2 | slotblk | 105/9 | `T8M2_slotblk` | T8M2slotblk |
+| T2V1 | drawing | 110/1 | `T2V1` | T2V1i / T2V1 |
+| T2V1 | bar | 110/7 | `T2V1_bar` | T2V1bar / T2V1 |
+| T2V2 | drawing | 111/1 | `T2V2` | T2V2i / T2V2 |
+| T2V2 | bar | 111/7 | `T2V2_bar` | T2V2bar / T2V2 |
+| T4V1 | drawing | 112/1 | `T4V1` | T4V1i / T4V1 |
+| T4V1 | bar | 112/7 | `T4V1_bar` | T4V1bar / T4V1 |
+| T4V2 | drawing | 113/1 | `T4V2` | T4V2i / T4V2 |
+| T4V2 | bar | 113/7 | `T4V2_bar` | T4V2bar / T4V2 |
+| T8V1 | drawing | 114/1 | `T8V1` | T8V1i / T8V1 |
+| T8V1 | bar | 114/7 | `T8V1_bar` | T8V1bar / T8V1 |
+| T8V2 | drawing | 115/1 | `T8V2` | T8V2i / T8V2 |
+| T8V2 | bar | 115/7 | `T8V2_bar` | T8V2bar / T8V2 |
+| RV | drawing | 120/1 | `RV` | RV / RDLV |
+| CB | drawing | 121/1 | `CB` | CBi / PA |
+| CB | text | 121/6 | `CB_text` | CBtext |
+| ALPAD | drawing | 122/1 | `ALPAD` | ALPAD |
+| ALPAD | res | 122/4 | `ALPAD_res` | ALPADres / ALPAR |
+| ALPAD | text | 122/6 | `ALPAD_text` | ALPADtext |
+| ALPAD | slot | 122/8 | `ALPAD_slot` | ALPADsloti |
+| ALPAD | slotblk | 122/9 | `ALPAD_slotblk` | ALPADslotblk |
+| RDL | drawing | 123/1 | `RDL` | RDLi / RDL |
+| RDL | text | 123/6 | `RDL_text` | RDLtext |
+| COVER | drawing | 124/1 | `L_COVER` | COVER / RDLPA2 |
+| BMIM | drawing | 140/1 | `BMIM` | BMIM |
+| TMIM | drawing | 141/1 | `TMIM` | TMIM |
+| IO | mark | 150/12 | `L_IO` | IO |
+| CORE | mark | 151/12 | `CORE` | CORE |
+| ULLD | mark | 152/12 | `ULLD` | ULLD |
+| UD | mark | 153/12 | `UD` | UD |
+| OD | mark | 154/12 | `OD` | OD |
+| SRAMALL | mark | 171/12 | `SRAMALL` | SRAMALL |
+| SRAMPG | mark | 172/12 | `SRAMPG` | SRAMPG |
+| SRAM6THD | mark | 173/12 | `SRAM6THD` | SRAM6THD |
+| SRAM6THS | mark | 174/12 | `SRAM6THS` | SRAM6THS |
+| SRAM8THD | mark | 176/12 | `SRAM8THD` | SRAM8THD |
+| SRAM8THS | mark | 177/12 | `SRAM8THS` | SRAM8THS |
+| DIODE | mark | 191/12 | `DIODE` | DIODE |
+| VARA | mark | 192/12 | `VARA` | VARA |
+| VARAM | mark | 193/12 | `VARAM` | VARAM |
+| VARAJ | mark | 194/12 | `VARAJ` | VARAJ |
+| BJT | mark | 195/12 | `BJT` | BJT |
+| LDMOS | mark | 211/12 | `LDMOS` | LDMOS |
+| ESDIOT | mark | 231/12 | `ESDIOT` | ESDIOT |
+| ESDIOE | mark | 232/12 | `ESDIOE` | ESDIOE |
+| RFALL | mark | 241/12 | `RFALL` | RFALL |
+| RFD | mark | 242/12 | `RFD` | RFD |
+| RFTER | mark | 243/12 | `RFTER` | RFTER |
+| PSUB | mark | 261/12 | `PSUB` | PSUBi / PSUB |
+| CAP | mark | 271/12 | `CAP` | CAP |
+| MOMCAP | mark | 281/12 | `MOMCAP` | MOMCAP |
+| MOMTER | mark | 282/12 | `MOMTER` | MOMTER |
+| FUTR | mark | 291/12 | `FUTR` | FUTR / FUSE |
+| FUSEALL | mark | 292/12 | `FUSEALL` | FUSEALL |
+| EFUSEALL | mark | 293/12 | `EFUSEALL` | EFUSEALL |
+| POEFUSEBLK | mark | 294/12 | `POEFUSEBLK` | POEFUSEBLK |
+| INDDMY | mark | 301/12 | `INDDMY` | INDDMY |
+| INDALL | mark | 302/12 | `INDALL` | INDALL |
+| INDVIA | mark | 303/12 | `INDVIA` | INDVIA |
+| NOLVS | mark | 311/12 | `NOLVS` | NOLVS |
+| MOSMF | mark | 312/12 | `MOSMF` | MOSMF |
+| SUBCKTLVS | mark | 313/12 | `SUBCKTLVS` | SUBCKTLVS |
+| RESCKTLVS | mark | 314/12 | `RESCKTLVS` | RESCKTLVS |
+| MOSCKTLVS | mark | 315/12 | `MOSCKTLVS` | MOSCKTLVS |
+| LATCHUP | mark | 316/12 | `LATCHUP` | LATCHUP |
+| RFSDLVS | mark | 317/12 | `RFSDLVS` | RFSDLVS |
+| RF5TERLVS | mark | 318/12 | `RF5TERLVS` | RF5TERLVS |
+| RF6TERLVS | mark | 319/12 | `RF6TERLVS` | RF6TERLVS |
+| VARAJMRK | mark | 320/12 | `VARAJMRK` | VARAJMRK |
+| LDMOSSTI | mark | 321/12 | `LDMOSSTI` | LDMOSSTI |
+| FUSEDRC | mark | 322/12 | `FUSEDRC` | FUSEDRC |
+| MOMLVS1 | mark | 323/12 | `MOMLVS1` | MOMLVS1 |
+| MOMLVS2 | mark | 324/12 | `MOMLVS2` | MOMLVS2 |
+| MOMLVS3 | mark | 325/12 | `MOMLVS3` | MOMLVS3 |
+| MOMLVS4 | mark | 326/12 | `MOMLVS4` | MOMLVS4 |
+| MOMLVS5 | mark | 327/12 | `MOMLVS5` | MOMLVS5 |
+| MOMLVS6 | mark | 328/12 | `MOMLVS6` | MOMLVS6 |
+| RES3TPOLY | mark | 329/12 | `RES3TPOLY` | RES3TPOLY |
+| CHIPBLK | mark | 351/12 | `CHIPBLK` | CHIPBLK |
+| SRBLK | mark | 352/12 | `SRBLK` | SRBLK |
+| GRBLK | mark | 353/12 | `GRBLK` | GRBLK / GRID |
+| SRINGBLK | mark | 354/12 | `SRINGBLK` | — |
+| LOGO | mark | 355/12 | `LOGO` | LOGO |
+| NOSHRINK | mark | 356/12 | `NOSHRINK` | NOSHRINK |
+| NODRC | mark | 357/12 | `NODRC` | NODRC |
+| OPCBLKALL | mark | 358/12 | `OPCBLKALL` | OPCBLKALL |
+| DMYBLK | mark | 359/12 | `DMYBLK` | DMYBLK |
+| NOEBBLK | mark | 360/12 | `NOEBBLK` | NOEBBLK |
+| METBLK | mark | 361/12 | `METBLK` | METBLK |
+| DEUPAD | mark | 381/12 | `DEUPAD` | DEUPADi / DEUPAD |
+| VDD | mark | 382/12 | `VDD` | PVDD |
+| VSS | mark | 383/12 | `VSS` | PVSS |
+| NPR | mark | 384/12 | `NPR` | NPR / X |
+| HRPBLK | mark | 385/12 | `HRPBLK` | HPR |
+| TTXT | mark | 386/12 | `TTXT` | TTXT |
+| SUBTXT | mark | 387/12 | `SUBTXT` | NW1CAP |
+| WELTXT | mark | 388/12 | `WELTXT` | — |
+
+`Calibre` lists the foundry-deck names for that stream layer: the input binding from the TVF `LAYER MAP` (`ACTi`) and the derived working-layer alias (`AA`). `—` means the deck has no name for it.

@@ -255,18 +255,33 @@ def generate_lyt(
 """
 
 
-def generate_crossref_md(entries: Iterable[LayerEntry]) -> str:
+def generate_crossref_md(
+    entries: Iterable[LayerEntry],
+    aliases: dict[tuple[int, int], object] | None = None,
+) -> str:
     lines = [
         "# ICS55 layer cross-reference",
         "",
-        "| PDK name | Purpose | GDS L/D | KLayout / Ruby |",
-        "|---|---|---|---|",
+        "| PDK name | Purpose | GDS L/D | KLayout / Ruby | Calibre |",
+        "|---|---|---|---|---|",
     ]
     for entry in entries:
+        calibre = ""
+        if aliases:
+            layer = aliases.get((entry.gds_layer, entry.gds_datatype))
+            if layer is not None:
+                calibre = getattr(layer, "display", "")
         lines.append(
             f"| {entry.name} | {entry.purpose} | "
-            f"{entry.gds_layer}/{entry.gds_datatype} | `{entry.ruby_name}` |"
+            f"{entry.gds_layer}/{entry.gds_datatype} | `{entry.ruby_name}` | "
+            f"{calibre or '—'} |"
         )
+    lines.append("")
+    lines.append(
+        "`Calibre` lists the foundry-deck names for that stream layer: the "
+        "input binding from the TVF `LAYER MAP` (`ACTi`) and the derived "
+        "working-layer alias (`AA`). `—` means the deck has no name for it."
+    )
     lines.append("")
     return "\n".join(lines)
 
@@ -282,6 +297,7 @@ def write_tech_files(cfg: PdkConfig, out_dir: Path) -> dict[str, Path]:
         docs_dir = out_dir / "docs"
     layers_rb.parent.mkdir(parents=True, exist_ok=True)
     docs_dir.mkdir(parents=True, exist_ok=True)
+    aliases = _calibre_aliases(cfg)
     paths = {
         "layers_rb": layers_rb,
         "lyp": out_dir / "icsprout55.lyp",
@@ -293,8 +309,23 @@ def write_tech_files(cfg: PdkConfig, out_dir: Path) -> dict[str, Path]:
     paths["lyp"].write_text(generate_lyp(entries), encoding="utf-8")
     paths["lyt"].write_text(generate_lyt(), encoding="utf-8")
     paths["lm"].write_text(generate_lm(entries), encoding="utf-8")
-    paths["crossref"].write_text(generate_crossref_md(entries), encoding="utf-8")
+    paths["crossref"].write_text(
+        generate_crossref_md(entries, aliases), encoding="utf-8"
+    )
     return paths
+
+
+def _calibre_aliases(cfg: PdkConfig) -> dict[tuple[int, int], object]:
+    """Calibre layer names for the cross-reference; empty if the deck is absent."""
+    from ics55_klayout_drc.calibre_golden import parse_layer_aliases
+
+    deck = getattr(cfg, "calibre_drc", None)
+    if not deck or not Path(deck).is_file():
+        return {}
+    try:
+        return parse_layer_aliases(deck)
+    except OSError:
+        return {}
 
 
 def _color(entry: LayerEntry) -> tuple[int, int, int]:

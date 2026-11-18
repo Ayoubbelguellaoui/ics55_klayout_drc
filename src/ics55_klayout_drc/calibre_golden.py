@@ -58,11 +58,56 @@ LOOSE_RULE_RE = re.compile(
     re.MULTILINE,
 )
 
+# Layer binding statements in the deck's INPUT LAYER STATEMENTS section:
+#   LAYER MAP <gds_layer> (DATATYPE|TEXTTYPE) <gds_datatype> <stream_id>
+#   LAYER <name> <stream_id>
+# and derived check-layer aliases:
+#   AA = COPY ACTi / M1 = MET1o NOT MET1sloti / CT = OR CTi CTbar
+LAYER_MAP_RE = re.compile(
+    r"^\s*LAYER\s+MAP\s+(?P<layer>\d+)\s+"
+    r"(?:DATATYPE|TEXTTYPE)\s+(?P<dt>\d+)\s+(?P<sid>\d+)\s*$",
+    re.MULTILINE,
+)
+LAYER_NAME_RE = re.compile(
+    r"^\s*LAYER\s+(?P<name>[A-Za-z_]\w*)\s+(?P<sid>\d+)\s*$", re.MULTILINE
+)
+ASSIGN_RE = re.compile(
+    r"^\s*(?P<lhs>[A-Za-z_]\w*)\s*=\s*(?P<rhs>.+?)\s*$", re.MULTILINE
+)
+COPY_RE = re.compile(r"^\s*COPY\s+(?P<src>[A-Za-z_]\w*)\s*$")
+NOT_RE = re.compile(r"\bNOT\b", re.IGNORECASE)
+WORD_RE = re.compile(r"[A-Za-z_]\w*")
+# Pure boolean verbs in TVF expressions. They are stripped before deciding
+# whether an assignment is a simple alias of input layers; anything else
+# (SIZE, INTERACT, HOLES, a derived name, ...) marks a geometric operation.
+BOOL_KEYWORDS = frozenset({"COPY", "OR", "AND", "NOT", "XOR"})
+
 
 @dataclass
 class GoldenRules:
     rules: dict[str, RuleResult]
     source: str
+
+
+@dataclass(frozen=True)
+class CalibreLayer:
+    """Calibre names for one GDS layer/datatype.
+
+    ``inputs`` are the stream-map bindings (``ACTi``); ``aliases`` are derived
+    working-layer names (``AA``, ``PO``, ``M1``) ranked best-first — a plain
+    ``= COPY`` rename wins, then the shortest name.
+    """
+
+    inputs: tuple[str, ...]
+    aliases: tuple[str, ...]
+
+    @property
+    def display(self) -> str:
+        primary = self.inputs[0] if self.inputs else ""
+        alias = self.aliases[0] if self.aliases else ""
+        if alias and alias != primary:
+            return f"{primary} / {alias}"
+        return alias or primary
 
 
 def normalize_rule_id(rule: str) -> str:
@@ -84,6 +129,72 @@ def normalize_rule_id(rule: str) -> str:
 def golden_id(rule: str) -> str:
     """Map a KLayout dot ID to the Calibre underscore spelling."""
     return rule.replace(".", "_")
+
+
+def parse_layer_aliases(path: str | Path) -> dict[tuple[int, int], "CalibreLayer"]:
+    """Map each GDS layer/datatype to its Calibre layer names.
+
+    Returns ``{(gds_layer, gds_datatype): CalibreLayer}``. A layer can carry
+    many Calibre names: the input binding from the stream map (``ACTi``) and
+    derived working-layer aliases (``AA``). :class:`CalibreLayer` keeps the
+    inputs and ranks the aliases so ``display`` surfaces the canonical name
+    (``ACTi / AA``), preferring a plain ``= COPY`` rename and otherwise the
+    shortest derived name.
+    """
+    text = Path(path).read_text(encoding="utf-8", errors="replace")
+
+    # stream id -> set of (gds_layer, gds_datatype) it reads from
+    sid_ld: dict[str, set[tuple[int, int]]] = {}
+    for m in LAYER_MAP_RE.finditer(text):
+        sid_ld.setdefault(m["sid"], set()).add((int(m["layer"]), int(m["dt"])))
+
+    # input name -> set of (gds_layer, gds_datatype)
+    name_ld: dict[str, set[tuple[int, int]]] = {}
+    for m in LAYER_NAME_RE.finditer(text):
+        lds = sid_ld.get(m["sid"])
+        if lds:
+            name_ld.setdefault(m["name"], set()).update(lds)
+
+    inputs: dict[tuple[int, int], set[str]] = {}
+    for name, lds in name_ld.items():
+        for ld in lds:
+            inputs.setdefault(ld, set()).add(name)
+
+    # derived aliases: (is_copy, name) grouped by the (l,d) they read from
+    copied: dict[tuple[int, int], set[str]] = {}
+    general: dict[tuple[int, int], set[str]] = {}
+    for m in ASSIGN_RE.finditer(text):
+        lhs = m["lhs"]
+        rhs = m["rhs"]
+        copy_match = COPY_RE.match(rhs)
+        if copy_match:
+            targets = [copy_match["src"]]
+        else:
+            positive = NOT_RE.split(rhs, 1)[0]
+            targets = [
+                t
+                for t in WORD_RE.findall(positive)
+                if t.upper() not in BOOL_KEYWORDS
+            ]
+        # a simple alias reads only input layers; anything else is geometry
+        if not targets or any(t not in name_ld for t in targets):
+            continue
+        bucket = copied if copy_match else general
+        for t in targets:
+            for ld in name_ld[t]:
+                bucket.setdefault(ld, set()).add(lhs)
+
+    def rank(names: set[str]) -> tuple[str, ...]:
+        return tuple(sorted(names, key=lambda n: (len(n), n)))
+
+    out: dict[tuple[int, int], CalibreLayer] = {}
+    for ld in set(inputs) | set(copied) | set(general):
+        aliases = rank(copied.get(ld, set())) + rank(general.get(ld, set()))
+        # drop duplicates while preserving rank order
+        seen: set[str] = set()
+        ordered = tuple(a for a in aliases if not (a in seen or seen.add(a)))
+        out[ld] = CalibreLayer(inputs=rank(inputs.get(ld, set())), aliases=ordered)
+    return out
 
 
 def _expand_template_name(name: str) -> list[str]:
